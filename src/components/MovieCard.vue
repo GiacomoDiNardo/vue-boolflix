@@ -5,7 +5,14 @@
         <h4>{{ originalTitle }}</h4>
         <img :src="cardImg" alt=""><br>
         <span  class="fi " :class="'fi-' + langFlag()"></span><br>
-        <span>{{ movie.vote_average }}</span>
+        <span v-for="i in 5" :key="i">
+            <span v-if="i <= ratingVotes">
+                <i class="fa-solid fa-star"></i>
+            </span>
+            <span v-else>
+                <i class="fa-regular fa-star"></i>
+            </span>
+        </span>
     </div>
   </div>
 </template>
@@ -39,6 +46,10 @@ props: {
             return imgUrl + imgSize + this.movie.poster_path
         }
         return "/movie-placeholder.jpg"
+    },
+
+    ratingVotes() {
+        return Math.ceil(this.movie.vote_average / 2)
     }
   },
 
