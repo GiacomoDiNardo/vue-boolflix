@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="card">
-        <h3>{{ movie.title }}</h3>
-        <h4>{{ movie.original_title }}</h4>
-        <span>{{ movie.original_language }}</span><br>
+        <h3>{{ movieTitle }}</h3>
+        <h4>{{ originalTitle }}</h4>
+        <span  class="fi " :class="'fi-' + langFlag()"></span><br>
         <span>{{ movie.vote_average }}</span>
     </div>
   </div>
@@ -13,10 +13,40 @@
 export default {
 props: {
     movie: Object
+},
+
+  computed: {
+    movieTitle() {
+        if(this.movie.title) {
+            return this.movie.title;
+        }
+        return this.movie.name;
+    },
+
+    originalTitle() {
+        if(this.movie.original_title) {
+            return this.movie.original_title;
+        }
+        return this.movie.original_name
+    }
+  },
+
+methods: {
+    langFlag() {
+        const langsMap = {
+            "en" : "us",
+            "ja" : "jp",
+            "ko" : "kr"
+        };
+        if (langsMap[this.movie.original_language]) {
+            return langsMap[this.movie.original_language]
+        }
+
+        return this.movie.original_language;
+    }
 }
 }
 </script>
 
 <style>
-
 </style>
