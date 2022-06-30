@@ -3,6 +3,7 @@
     <div class="card">
         <h3>{{ movieTitle }}</h3>
         <h4>{{ originalTitle }}</h4>
+        <img :src="cardImg" alt=""><br>
         <span  class="fi " :class="'fi-' + langFlag()"></span><br>
         <span>{{ movie.vote_average }}</span>
     </div>
@@ -28,6 +29,16 @@ props: {
             return this.movie.original_title;
         }
         return this.movie.original_name
+    },
+
+    cardImg() {
+        const imgUrl = "https://image.tmdb.org/t/p/";
+        const imgSize = "w342"
+
+        if(this.movie.poster_path) {
+            return imgUrl + imgSize + this.movie.poster_path
+        }
+        return "/movie-placeholder.jpg"
     }
   },
 
@@ -43,7 +54,7 @@ methods: {
         }
 
         return this.movie.original_language;
-    }
+    },
 }
 }
 </script>
